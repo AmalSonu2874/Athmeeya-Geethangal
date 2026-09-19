@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="ml">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#eee5d5">
+  <meta name="description" content="Athmeeya Geethangal — a calm, fast Malayalam Christian hymn library for web, Android and iOS.">
+  <meta name="application-name" content="Athmeeya Geethangal">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Athmeeya Geethangal">
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Malayalam:wght@400;500;600;700&family=Noto+Serif+Malayalam:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <title>Athmeeya Geethangal</title>
+</head>
+<body id="top">
+  <div id="scroll-progress" aria-hidden="true"></div>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div id="splash" aria-hidden="true">
+    <div class="splash-logo-wrap"><img src="logo.svg" alt=""></div>
+    <strong>ആത്മീയ ഗീതങ്ങൾ</strong>
+    <span>ATHMEEYA GEETHANGAL</span>
+  </div>
+
+  <header id="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="ആത്മീയ ഗീതങ്ങൾ home">
+        <span class="brand-mark"><img src="logo.svg" alt=""></span>
+        <span class="brand-copy"><strong>ആത്മീയ ഗീതങ്ങൾ</strong><small>ATHMEEYA GEETHANGAL</small></span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <button class="nav-link active" data-view="home" type="button">Home</button>
+        <button class="nav-link" data-view="index" type="button">Index</button>
+        <button class="nav-link" data-view="about" type="button">About</button>
+        <button class="nav-link nav-install" data-open-install type="button"><span class="install-dot"></span>Install</button>
+      </nav>
+
+      <div class="header-status" aria-live="polite"><span class="status-dot"></span><span id="network-label">Online</span></div>
+    </div>
+
+    <div class="search-row">
+      <label class="search-box" for="search-input">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m20 20-4.25-4.25m1.25-5A6.25 6.25 0 1 1 4.5 10.75a6.25 6.25 0 0 1 12.5 0Z"/></svg>
+        <input type="search" id="search-input" inputmode="search" placeholder="ഗീതം നമ്പർ, പേര്, വരി തിരയുക…" autocomplete="off" spellcheck="false">
+        <span class="search-hint">↵</span>
+        <button id="clear-search" type="button" aria-label="Clear search" hidden>×</button>
+      </label>
+      <div id="search-suggestions" class="search-suggestions" hidden></div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="home-view" class="view active" aria-label="Song library">
+      <div class="hero-panel">
+        <div class="hero-copy">
+          <div class="hero-kicker"><span></span> THE HYMN LIBRARY</div>
+          <div class="hero-title-line">
+            <img src="logo.svg" class="hero-logo" alt="">
+            <div>
+              <h1>Song Collection</h1>
+              <p>Malayalam worship songs arranged for quiet reading, exact finding and easy sharing.</p>
+            </div>
+          </div>
+          <div class="hero-actions">
+            <button class="soft-btn primary" id="random-song" type="button"><span class="btn-icon">✦</span><span>Random</span></button>
+            <button class="soft-btn" id="jump-song" type="button"><span class="btn-icon">#</span><span>Go to Song</span></button>
+            <button class="soft-btn" id="open-index-home" type="button"><span class="btn-icon">Aᶻ</span><span>Index</span></button>
+          </div>
+        </div>
+        <div class="hero-stat" aria-label="Song collection size">
+          <strong><span id="collection-count">62</span><i>/</i><span id="index-total">500</span></strong>
+          <span>songs / index</span>
+          <small>Live from songs-data.js</small>
+        </div>
+      </div>
+
+      <div class="search-tip" id="search-tip">
+        <span class="tip-mark">⌕</span>
+        <span>Type a song number or exact title and press <b>Enter</b>. Suggestions open songs instantly.</span>
+      </div>
+
+      <div class="section-head">
+        <div><p class="eyebrow">COLLECTION</p><h2>Songs</h2></div>
+        <p id="result-count" class="count-pill"></p>
+      </div>
+
+      <div id="song-feed"></div>
+      <div id="empty-state" class="empty-state" hidden>
+        <div class="empty-mark">⌕</div>
+        <strong>No songs found</strong>
+        <span>Try another title, number or lyric.</span>
+      </div>
+    </section>
+
+    <section id="about-view" class="view" aria-label="About" hidden>
+      <div class="about-card">
+        <span class="about-logo-wrap"><img src="logo.svg" alt="ആത്മീയ ഗീതങ്ങൾ" class="about-logo"></span>
+        <p class="eyebrow">ABOUT THE APP</p>
+        <h1>ആത്മീയ ഗീതങ്ങൾ</h1>
+        <p class="about-lead">A lightweight hymn library built to stay simple: search, open, read, copy, share and save any song.</p>
+        <div class="about-grid">
+          <div><strong id="about-count">62</strong><span>Songs added</span></div>
+          <div><strong id="about-index-count">500</strong><span>Index range</span></div>
+          <div><strong>100%</strong><span>Data driven</span></div>
+        </div>
+        <div class="status-card"><span class="status-dot"></span><div><strong id="offline-title">Offline ready</strong><span id="offline-copy">The shell and current song data are cached when the app is online.</span></div></div>
+        <div class="about-actions">
+          <button class="soft-btn primary" id="open-settings" type="button">Reader settings</button>
+          <button class="soft-btn" id="refresh-app" type="button">Refresh library</button>
+          <button class="soft-btn" data-open-install type="button">Install app</button>
+        </div>
+        <p class="about-note">For GitHub Pages: update <code>songs-data.js</code> and push. The service worker revalidates the library and app shell automatically on the next load.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="menu-overlay" aria-hidden="true"></div>
+  <section id="index-sheet" class="index-sheet" aria-hidden="true" aria-label="Full song index">
+    <div class="sheet-grabber"></div>
+    <div class="sheet-head">
+      <div><p class="eyebrow">BROWSE</p><h2>Song Index</h2><small><span id="available-count">62</span> songs available</small></div>
+      <button id="close-index" class="icon-btn" type="button" aria-label="Close index">×</button>
+    </div>
+    <div class="menu-search-box">
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m20 20-4.25-4.25m1.25-5A6.25 6.25 0 1 1 4.5 10.75a6.25 6.25 0 0 1 12.5 0Z"/></svg>
+      <input type="search" id="menu-search" inputmode="search" placeholder="Search numbers or titles…" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="menu-tabs" role="tablist">
+      <button class="menu-tab active" data-tab="numbers" role="tab" type="button">Numbers</button>
+      <button class="menu-tab" data-tab="akaradi" role="tab" type="button">അകാരാദി</button>
+    </div>
+    <div id="numbers-panel" class="menu-panel active">
+      <div class="index-note"><strong>Song index</strong><span>Tap a number to open that song directly.</span></div>
+      <div id="jump-grid" class="jump-grid" aria-label="Song numbers 1 to 500"></div>
+    </div>
+    <div id="akaradi-panel" class="menu-panel">
+      <div id="akaradi-letters" class="akaradi-letters"></div>
+      <div id="akaradi-list" class="akaradi-list"></div>
+    </div>
+  </section>
+
+  <section id="reader-overlay" class="reader-overlay" aria-hidden="true">
+    <div class="reader-backdrop"></div>
+    <div class="reader-shell">
+      <header class="reader-head">
+        <button class="reader-close icon-btn" id="reader-close" type="button" aria-label="Close reader">×</button>
+        <div class="reader-heading"><span id="reader-number">ഗീതം</span><strong id="reader-title">—</strong></div>
+        <div class="reader-head-actions">
+          <button class="icon-btn" id="reader-download" type="button" aria-label="Download song image">↓</button>
+          <button class="icon-btn" id="reader-share" type="button" aria-label="Share song">↗</button>
+          <button class="icon-btn" id="reader-youtube" type="button" aria-label="Open YouTube">▶</button>
+        </div>
+      </header>
+      <div class="reader-content" id="reader-content"></div>
+      <footer class="reader-tools">
+        <button id="reader-prev" type="button">← <span>Prev</span></button>
+        <button id="reader-auto" type="button"><span class="tool-dot"></span> Auto scroll</button>
+        <button id="reader-copy" type="button">Copy</button>
+        <button id="reader-next" type="button"><span>Next</span> →</button>
+      </footer>
+      <div class="reader-speed" id="reader-speed" aria-label="Auto scroll speed"><button data-speed="0.5">Slow</button><button data-speed="0.8" class="active">Normal</button><button data-speed="1.2">Fast</button></div>
+    </div>
+  </section>
+
+  <section id="install-modal" class="install-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="install-title">
+    <div class="install-backdrop" data-install-dismiss></div>
+    <div class="install-card" role="document">
+      <button id="install-close" class="install-close" type="button" aria-label="Close install dialog">×</button>
+      <div class="install-brand"><span class="install-logo-wrap"><img src="logo.svg" alt=""></span><span>ATHMEEYA GEETHANGAL</span></div>
+      <div class="install-badge"><span class="install-badge-dot"></span><span id="install-badge-text">APP READY</span></div>
+      <h2 id="install-title">Install Athmeeya Geethangal</h2>
+      <p id="install-copy">Keep the hymn library one tap away with a fast, app-like experience.</p>
+
+      <div id="install-progress-wrap" class="install-progress-wrap" hidden>
+        <div class="install-progress-head"><span id="install-progress-label">Preparing installation…</span><strong id="install-progress-value">0%</strong></div>
+        <div class="install-progress-track" aria-hidden="true"><span id="install-progress-bar"></span></div>
+        <p>Make sure you have a good internet connection while the app is being installed.</p>
+      </div>
+
+      <div id="install-actions" class="install-actions">
+        <button id="install-now" class="install-primary" type="button">Install Now</button>
+      </div>
+      <div id="install-hint" class="install-hint" hidden></div>
+    </div>
+  </section>
+
+  <section id="settings-sheet" class="settings-sheet" aria-hidden="true">
+    <div class="settings-head"><div><p class="eyebrow">PERSONALIZE</p><h2>Reader settings</h2></div><button class="icon-btn" id="close-settings" type="button" aria-label="Close settings">×</button></div>
+    <div class="settings-group"><span class="setting-label">Reading size</span><div class="size-row"><button id="zoom-out" type="button">A−</button><div class="size-track"><span id="size-indicator"></span></div><button id="zoom-in" type="button">A+</button></div></div>
+    <div class="settings-group"><span class="setting-label">App</span><button id="clear-preferences" class="settings-link" type="button">Reset reading preferences</button></div>
+  </section>
+  <div id="settings-backdrop"></div>
+
+  <nav class="mobile-nav" aria-label="Mobile app navigation">
+    <button class="mobile-nav-link active" data-view="home" type="button"><span class="nav-symbol">⌂</span><span>Home</span></button>
+    <button class="mobile-nav-link" id="mobile-search" type="button"><span class="nav-symbol">⌕</span><span>Search</span></button>
+    <button class="mobile-nav-link nav-center" data-view="index" type="button"><span class="nav-symbol">Aᶻ</span><span>Index</span></button>
+    <button class="mobile-nav-link" data-view="about" type="button"><span class="nav-symbol">i</span><span>About</span></button>
+    <button class="mobile-nav-link mobile-install-link" data-open-install type="button"><span class="nav-symbol">⇩</span><span>Install</span></button>
+  </nav>
+
+  <button id="top-btn" type="button" aria-label="Back to top">↑</button>
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <footer id="site-footer" aria-label="Ministry information">
+    <div class="footer-shell">
+      <div class="footer-ministry">
+        <span class="footer-logo-wrap"><img src="logo.svg" alt="" class="footer-logo"></span>
+        <p class="footer-kicker">ആത്മീയ ഗീതങ്ങൾ</p>
+        <h2>ATHMEEYA GEETHANGAL</h2>
+        <p class="footer-verse">“ഞാൻ ആത്മാവുകൊണ്ടു പാടും; ബുദ്ധികൊണ്ടും പാടും” <span>· 1 കൊരിന്ത്യർ 14:15</span></p>
+      </div>
+
+      <div class="footer-trustee">
+        <span class="footer-label">LHMM</span>
+        <strong>Bro. Leon J. Snyder</strong>
+        <p>Executive Trustee &amp; General Pastor</p>
+        <p>1156, St. Matthew's Road, Chester Springs,<br> Pennsylvania 19425-2700, U.S.A.</p>
+      </div>
+
+      <div class="footer-published-block">
+        <span>Published by</span>
+        <strong>Bible Standard Ministries – LHMM</strong>
+      </div>
+
+      <div class="footer-contact-grid">
+        <article class="footer-contact-card">
+          <strong>Bro. V. Vincent Jeyakumar</strong>
+          <span>Representative of India</span>
+          <p>#4/81, Eluvaraimukki Main Road,<br>Eluvaraimukki Village,<br>Near Thopput, Nazareth - 628 617,<br>Thoothukudi District, Tamil Nadu</p>
+          <a href="mailto:vincentlhmm@gmail.com">E-mail ID: vincentlhmm@gmail.com</a>
+        </article>
+        <article class="footer-contact-card">
+          <strong>Bro. Abraham Mathew</strong>
+          <span>Evangelist</span>
+          <p>Kakkamparampil (H), Near BSNL,<br>Njaliakuzhy, Vakanthanam P.O.<br>Kottayam District,<br>Kerala - 686 538</p>
+          <a href="mailto:enjoymathew@gmail.com">E-mail ID: enjoymathew@gmail.com</a>
+        </article>
+      </div>
+
+      <div class="footer-bottom">
+        <span>Digital Hymn Library</span>
+        <span id="footer-count">62 / 500</span>
+        <button class="footer-install-link" data-open-install type="button">Install app</button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="songs-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

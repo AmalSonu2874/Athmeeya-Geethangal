@@ -1,0 +1,17 @@
+{
+  "name":"Athmeeya Geethangal",
+  "id":"./",
+  "short_name":"Athmeeya Geethangal",
+  "lang":"ml",
+  "start_url":"./",
+  "scope":"./",
+  "display":"standalone",
+  "orientation":"any",
+  "background_color":"#eee5d5",
+  "theme_color":"#6a2631",
+  "description":"Athmeeya Geethangal — Malayalam Christian hymn library for web, Android and iOS.",
+  "icons":[
+    {"src":"apple-touch-icon.png","sizes":"180x180","type":"image/png","purpose":"any maskable"},
+    {"src":"logo.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
